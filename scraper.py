@@ -1,18 +1,23 @@
-# This is a template for a Python scraper on morph.io (https://morph.io)
-# including some code snippets below that you should find helpful
+# Closely based on a template for a Python scraper from morph.io (https://morph.io)
+import scraperwiki
+import lxml.html
 
-# import scraperwiki
-# import lxml.html
-#
-# # Read in a page
-# html = scraperwiki.scrape("http://foo.com")
+# # Read in page data
+html = scraperwiki.scrape("http://www.aec.gov.au/Elections/Australian_Electoral_History/Federal_State_and_Territory_elections_dates_1946_Present.htm")
 #
 # # Find something on the page using css selectors
-# root = lxml.html.fromstring(html)
-# root.cssselect("div[align='left']")
+root = lxml.html.fromstring(html)
+tbody = root.cssselect("tbody")
+
+for tr in tbody.cssselect("tr"):
+  tds=tr.cssselect("td")
+  year=tds[0].text_content()
+  date=tds[1].text_content()
+  electionType=tds[2].text_content()
+  
 #
 # # Write out to the sqlite database using scraperwiki library
-# scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
+  scraperwiki.sqlite.save(unique_keys=['electionType','year'], data={"year": year, "date": date, "type": electionType})
 #
 # # An arbitrary query against the database
 # scraperwiki.sql.select("* from data where 'name'='peter'")
