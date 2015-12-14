@@ -7,9 +7,8 @@ html = scraperwiki.scrape("http://www.aec.gov.au/Elections/Australian_Electoral_
 #
 # # Find something on the page using css selectors
 root = lxml.html.fromstring(html)
-tbody = root.cssselect("tbody")
 
-for tr in tbody.cssselect("tr"):
+for tr in root.cssselect("tbody>tr"):
   tds=tr.cssselect("td")
   year=tds[0].text_content()
   date=tds[1].text_content()
