@@ -16,7 +16,7 @@ for tr in root.cssselect("tbody>tr"):
   
 #
 # # Write out to the sqlite database using scraperwiki library
-  scraperwiki.sqlite.save(unique_keys=['electionType','year'], data={"year": year, "date": date, "type": electionType})
+  scraperwiki.sqlite.save(unique_keys=['electionType','year'], data={"year": year, "date": date, "electionType": electionType})
 #
 # # An arbitrary query against the database
 # scraperwiki.sql.select("* from data where 'name'='peter'")
